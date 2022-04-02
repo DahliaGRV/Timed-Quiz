@@ -1,7 +1,7 @@
 // TODO: Global Scope Variables Here
 var upTime = document.querySelector("upTime");
 var highScore =document.querySelector("highscore");
-var h1El = document.createElement("h1");
+var h1El = document.querySelector("h1");
 var timer;
 var timerLeft = 200;
 var score = localStorage.getItem("score") || 0;
@@ -15,9 +15,8 @@ var isPlaying = false;
 
    function startGame() {
     if (isPlaying) {
-        h1El.textContent = "How many characters in Stardew are marriage options?"
       return;
-    }}
+    }
     isPlaying = true;
     timeLeft = 200;
     //  Start timer when start button is pushed 
@@ -33,13 +32,13 @@ var isPlaying = false;
           if (timeLeft <= 0) {
             clearInterval(timer);
             console.log("LOST!");
-            wordPara.textContent = `OUT OF TIME`;
+            upTime.textContent = `OUT OF TIME`;
             // localStorage.setItem("", );
           }
         }, 1000);
-      }
-      if (isPlaying === true) {
-      function firstQuestion() {
+      }};
+      if (isPlaying === true){
+    function firstQuestion(){
     // Create ordered list element
     var listEl = document.createElement("ol");
     // Create ordered list items
