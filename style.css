@@ -1,0 +1,27 @@
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body {
+    background-image: url("./Assets/Sky-stardew.webp");
+    background-size: cover;
+}
+ul {
+    text-align: left;
+    list-style-type: none;
+    margin:0 auto;
+}
+header {
+    text-align: center;
+    margin-top: 15%;
+    
+}
+
+.button {
+    color: white;
+    background-color: purple;
+    text-align: center;
+    padding: 15px;
+    border: black dotted 2px;
+    align-self: center;
+    margin-left: 48%;
+}
