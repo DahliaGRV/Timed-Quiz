@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Stardew Quiz</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <ul>
-        <li id="highscore" class="li">View Highscores</li>
-        <li id="upTime" class="li">Time Left</li>
+      <li id="highscore" class="li">View Highscores</li>
+      <li><span id="upTime" class="li"></span> Seconds Left</li>
     </ul>
-    <header> 
-        <h1 data-state="visible"> STARDEW QUIZ </h1>
-        <h2 data-state="visible">How much do YOU know about Stardew Valley?</h2>
-        <h3 data-state="visible">Press the button to find out!</h3>
+    <div>
+      <section></section>
+    </div>
+    <header>
+      <h1 data-state="visible">STARDEW QUIZ</h1>
+      <h2 data-state="visible">How much do YOU know about Stardew Valley?</h2>
+      <h3 data-state="visible">Press the button to find out!</h3>
+      <button id="start" class="button" data-state="visible">Start Button</button>
     </header>
-    <button id="start" class="button" data-state="visible">Start Button</button>
-    <section>
-        <!-- <p id="right-message"data-state="hidden">Correct!</p>
+    
+    <!-- <p id="right-message"data-state="hidden">Correct!</p>
         <p id="wrong-message"data-state="hidden">Wrong!</p> -->
-    </section>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
