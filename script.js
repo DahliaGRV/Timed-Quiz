@@ -84,8 +84,15 @@ var isPlaying = false;
     li3.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;");
     li4.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;");
 
-    listEl.addEventListener("click",function())
-      };
+    // listEl.addEventListener("click",function(event){
+    //     var element = event.target;
+    //     if (element.matches("li3")) {
+    //         secondQuestion();
+    // } else if (element.matches(li1||l12||l14)) {
+    //     alert("Wrong Answer!")
+
+    // });
+};
 
 // TODO: Each Question Page
     // Has 'view highscores' link in every top left corner HTML
