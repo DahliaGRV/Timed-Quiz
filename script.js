@@ -37,6 +37,7 @@ var isPlaying = false;
             console.log("LOST!");
             upTime.textContent = `OUT OF TIME`;
             // localStorage.setItem("", );
+            return;
           }
         }, 1000);
       }};
@@ -82,6 +83,8 @@ var isPlaying = false;
     li2.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;");
     li3.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;");
     li4.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;");
+
+    listEl.addEventListener("click",function())
       };
 
 // TODO: Each Question Page
