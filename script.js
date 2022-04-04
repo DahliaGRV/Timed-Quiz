@@ -1,5 +1,5 @@
 // TODO: Global Scope Variables Here
-var upTime = document.querySelector("#upTime");
+var upTime = document. querySelector("#upTime");
 var highScore =document.querySelector("#highscore");
 var headerEl = document.querySelector("header");
 var marriageQuestions = document.querySelector("section")
@@ -77,21 +77,26 @@ var isPlaying = false;
     listEl.appendChild(li2);
     listEl.appendChild(li3);
     listEl.appendChild(li4);
-    marriage.setAttribute("style","margin-top:15%;color:white; font-weight:bold; display:flex; flex-wrap:wrap; justify-content:center; text-align:center background-color:pink; padding: 5px;")
+    marriage.setAttribute("style","margin-top:15%;color:white; font-weight:bold; display:flex; flex-wrap:wrap; justify-content:center; text-align:center background-color:pink; padding: 5px;");
     listEl.setAttribute("style"," display:block;flex-direction:column;justify-content:center;max-width:10%;margin-left:43%;text-align:center; lightgrey 1px solid;");
     li1.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;");
     li2.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;");
     li3.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;");
     li4.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;");
 
-    // listEl.addEventListener("click",function(event){
-    //     var element = event.target;
-    //     if (element.matches("li3")) {
-    //         secondQuestion();
-    // } else if (element.matches(li1||l12||l14)) {
-    //     alert("Wrong Answer!")
-
-    // });
+    listEl.addEventListener("click",function(event){
+        var element = event.target;
+        if (element.matches(li3)) {
+            var correct = document.createElement("p");
+            correct.textContent = "Correct!!"
+            marriageQuestions.appendChild(correct);
+            correct.setAttribute("style","color:darkgreen; border-top: black dotted 2px;")
+            secondQuestion();
+    } else if (element.matches(li1||l12||l14)) {
+        // Placeholder alert
+        alert("Wrong Answer!")
+// function secondQuestion () {}
+    }});
 };
 
 // TODO: Each Question Page
