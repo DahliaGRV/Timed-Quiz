@@ -1,8 +1,10 @@
 // TODO: Global Scope Variables Here
 var upTime = document. querySelector("#upTime");
 var highScore =document.querySelector("#highscore");
+var nameBtn = document.querySelector("form");
+nameBtn.setAttribute("style","display:none");
 var score = 0;
-var headerEl = document.querySelector("header");
+var headerEl = document.querySelector("aside");
 var questions = document.querySelector("section");
 var listEl = document.querySelector("#listEl");
 var questionHeader = document.querySelector("#question-header");
@@ -30,7 +32,7 @@ var questionObjects = [
     {questions: "What is the name of the homeless man behind town?",
      answer: "Linus",
      choices: ["Shane","Lewis","Harvey","Linus"],
-    }
+    },
    ];
 var x = 0
 var timer;
@@ -73,6 +75,8 @@ var isPlaying = false;
       function displayQuestions() {
     headerEl.setAttribute("style","display:none");
     startBtn.setAttribute("style","display:none");
+    nameBtn.setAttribute("style","display:none");
+
     questionHeader.textContent = questionObjects [x].questions;
     choice1.textContent = questionObjects [x].choices[0];
     choice2.textContent = questionObjects [x].choices[1];
@@ -92,7 +96,7 @@ var isPlaying = false;
     choice4.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;","class","not-correct");
       }
       function checkAnswer() {
-      if (questionObjects[x].answer === this.innerHTML && x < questionObjects.length -1) {
+      if (questionObjects[x].answer === this.innerHTML) {
           console.log("You got it right!");
           score += 10;
           highScore.textContent = score 
@@ -100,16 +104,36 @@ var isPlaying = false;
           displayQuestions();
       } else {
         console.log("You lost!");
-        timerLeft -= 30;
+        timerLeft -= 50;
         score -= 2;
-      }
-     theScore();
-     }; 
-     function theScore() {
-        headerEl.setAttribute("style","display:none");
-        startBtn.setAttribute("style","display:none");  
+      };
+    // questionObjects.answer.addEventListener("click",function(event)
+    // {
+    //     var element = event.target;
+    //     if (element.matches("Linus"))
+    //     theScore();
+    // });
+    //   let linusMan = questionObjects[3].answer[3];
+    //   console.log(linusMan);
+    //   questionObjects[4].answer.addEventListener("click", theScore());
 
-     };
+      };
+     function theScore() {
+        clearInterval(timer);
+        isPlaying= false;
+        headerEl.setAttribute("style","display:none");
+        startBtn.setAttribute("style","display:none");
+        questionHeader.setAttribute("style","display:none");
+        listEl.setAttribute("style","display:none");
+        choice1.setAttribute("style","display:none");
+        choice2.setAttribute("style","display:none");
+        choice3.setAttribute("style","display:none");
+        choice4.setAttribute("style","display:none");
+        nameBtn.setAttribute("style","display:flex");
+
+
+
+ };
 // TODO: Each Question Page
     // Has 'view highscores' link in every top left corner HTML
     // Change the h1,h2, h3 tags to be questions or to be hidden 
