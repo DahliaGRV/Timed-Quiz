@@ -19,7 +19,7 @@ var questionObjects = [
      answer:"Golden Scythe",
      choices: ["Prismatic Shard","Void Pendant","Golden Scythe","Diamond"]
     },
-    {questions: "Which NPC has questinable paternity?",
+    {questions: "Which NPC has questionable paternity?",
     answer: "Abigail",
     choices: ["Vincent","Sebastian","Emily","Abigail"]
     },
@@ -29,9 +29,9 @@ var questionObjects = [
     },
     {questions: "What is the name of the homeless man behind town?",
      answer: "Linus",
-     choices: ["Shane","Lewis","Harvey","Linus"]
+     choices: ["Shane","Lewis","Harvey","Linus"],
     }
-   ]
+   ];
 var x = 0
 var timer;
 var timerLeft = 200;
