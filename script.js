@@ -1,8 +1,38 @@
 // TODO: Global Scope Variables Here
 var upTime = document. querySelector("#upTime");
 var highScore =document.querySelector("#highscore");
+var score = 0;
 var headerEl = document.querySelector("header");
-var questions = document.querySelector("section")
+var questions = document.querySelector("section");
+var listEl = document.querySelector("#listEl");
+var questionHeader = document.querySelector("#question-header");
+var choice1 = document.querySelector("#choice-1");
+var choice2 = document.querySelector("#choice-2");
+var choice3 = document.querySelector("#choice-3");
+var choice4 = document.querySelector("#choice-4");
+var questionObjects = [
+    {questions:"How many NPCs are marriage options?",
+    answer:"Twelve",
+    choices: ["Eight","Fourteen","Nine","Twelve"],
+    }, 
+    {questions: "What do you recieve at the end of the quarry mine?",
+     answer:"Golden Scythe",
+     choices: ["Prismatic Shard","Void Pendant","Golden Scythe","Diamond"]
+    },
+    {questions: "Which NPC has questinable paternity?",
+    answer: "Abigail",
+    choices: ["Vincent","Sebastian","Emily","Abigail"]
+    },
+    {questions: "What is the currency of ginger island?",
+    answer: "Golden Walnuts",
+    choices: ["Lionfish","Golden Coconuts","Bone Fragments","Golden Walnuts"]
+    },
+    {questions: "What is the name of the homeless man behind town?",
+     answer: "Linus",
+     choices: ["Shane","Lewis","Harvey","Linus"]
+    }
+   ]
+var x = 0
 var timer;
 var timerLeft = 200;
 var score = localStorage.getItem("score") || 0;
@@ -19,190 +49,67 @@ var isPlaying = false;
       return;
     }
     isPlaying = true;
-    timeLeft = 200;
     startTimer ();
-    firstQuestion ();
+    displayQuestions ();
     //  Start timer when start button is pushed 
     //  Displays time left on top left corner
     // Activity 9
     // var timer;
     function startTimer() {
-        upTime.textContent = timeLeft;
+        upTime.textContent = timerLeft;
         timer = setInterval(function() {
-          console.log(timeLeft);
-          timeLeft--;
-          upTime.textContent = timeLeft;
-          if (timeLeft <= 0) {
+          timerLeft--;
+          upTime.textContent = timerLeft;
+          if (timerLeft <= 0) {
             clearInterval(timer);
             console.log("LOST!");
+            alert("Oooooooh too slow!!");
             upTime.textContent = `OUT OF TIME`;
-            // localStorage.setItem("", );
-            return;
+            // Have it go back to beginning of timer === 0 (maybe default css)
+            startGame();
           }
         }, 1000);
       }};
-      console.log(startGame);
-
-    function firstQuestion() {
+      function displayQuestions() {
     headerEl.setAttribute("style","display:none");
     startBtn.setAttribute("style","display:none");
-    // Create Question
-    var marriage = document.createElement("p");
-    // Create ordered list element
-    var listEl = document.createElement("ol");
-    // Create ordered list items
-    var li1 = document.createElement("li");
-    var li2 = document.createElement("li");
-    var li3 = document.createElement("li");
-    var li4 = document.createElement("li");
+    questionHeader.textContent = questionObjects [x].questions;
+    choice1.textContent = questionObjects [x].choices[0];
+    choice2.textContent = questionObjects [x].choices[1];
+    choice3.textContent = questionObjects [x].choices[2];
+    choice4.textContent = questionObjects [x].choices[3];
 
-    marriage.textContent = "How many NPCs are marriage options?"
-    li1.textContent = "Eight"
-    li2.textContent = "Fourteen"
-    li3.textContent = "Twelve"
-    li4.textContent = "Nine"
-
-    // Append ordered list 
-    questions.appendChild(marriage);
-    questions.appendChild(listEl);
-    listEl.appendChild(li1);
-    listEl.appendChild(li2);
-    listEl.appendChild(li3);
-    listEl.appendChild(li4);
-    marriage.setAttribute("style","margin-top:15%;color:white; font-weight:bold; display:flex; flex-wrap:wrap; justify-content:center; text-align:center background-color:pink; padding: 5px;");
+    choice1.addEventListener("click", checkAnswer);
+    choice2.addEventListener("click", checkAnswer);
+    choice3.addEventListener("click", checkAnswer);
+    choice4.addEventListener("click", checkAnswer);
+    
+    questionHeader.setAttribute("style","margin-top:15%;color:white; font-weight:bold; display:flex; flex-wrap:wrap; justify-content:center; text-align:center background-color:pink; padding: 5px;");
     listEl.setAttribute("style"," display:block;flex-direction:column;justify-content:center;max-width:10%;margin-left:43%;text-align:center; lightgrey 1px solid;");
-    li1.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;");
-    li2.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;");
-    li3.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;");
-    li4.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;");
-
-    listEl.addEventListener("click",function(event){
-        var element = event.target;
-        if (element.matches("li3")) {
-            var correct = document.createElement("p");
-            correct.textContent = "Correct!!";
-            marriageQuestions.appendChild(correct);
-            correct.setAttribute("style","color:darkgreen; border-top: black dotted 2px;");
-            console.log("Hello!");
-            // store score in localStorage based on time on clock when clicked?
-            secondQuestion();
-    } else if (element.matches("li1"||"li2"||"li4")) {
-        // Placeholder alert
-        var wrong = document.createElement("p");
-        wrong.textContent = "Wrong!!";
-        marriageQuestions.appendChild(wrong);
-        wrong.setAttribute("style","color:darkgreen; border-top: black dotted 2px;")
-        // Put in time deduction function here for wrong answer
-
-    }});
-};
-    function secondQuestion() {
+    choice1.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;","class","correct-answer");
+    choice2.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;","class","not-correct");
+    choice3.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;","class","not-correct");
+    choice4.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;","class","not-correct");
+      }
+      function checkAnswer() {
+      if (questionObjects[x].answer === this.innerHTML && x < questionObjects.length -1) {
+          console.log("You got it right!");
+          score += 10;
+          highScore.textContent = score 
+          x++
+          displayQuestions();
+      } else {
+        console.log("You lost!");
+        timerLeft -= 30;
+        score -= 2;
+      }
+     theScore();
+     }; 
+     function theScore() {
         headerEl.setAttribute("style","display:none");
-        startBtn.setAttribute("style","display:none");
-        // Create Question
-        var quarryMine = document.createElement("p");
-        // Create ordered list element
-        var listEl = document.createElement("ol");
-        // Create ordered list items
-        var li1 = document.createElement("li");
-        var li2 = document.createElement("li");
-        var li3 = document.createElement("li");
-        var li4 = document.createElement("li");
-    
-        quarryMine.textContent = "What do you recieve at the end of the quarry mine?"
-        li1.textContent = "Prismatic Shard"
-        li2.textContent = "Void Pendant"
-        li3.textContent = "Diamond"
-        li4.textContent = "Golden Scythe"
-    
-        // Append ordered list 
-        questions.appendChild(quarryMine);
-        questions.appendChild(listEl);
-        listEl.appendChild(li1);
-        listEl.appendChild(li2);
-        listEl.appendChild(li3);
-        listEl.appendChild(li4);
-        quarryMine.setAttribute("style","margin-top:15%;color:white; font-weight:bold; display:flex; flex-wrap:wrap; justify-content:center; text-align:center background-color:pink; padding: 5px;");
-        listEl.setAttribute("style"," display:block;flex-direction:column;justify-content:center;max-width:10%;margin-left:43%;text-align:center; lightgrey 1px solid;");
-        li1.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;");
-        li2.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;");
-        li3.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;");
-        li4.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;");
+        startBtn.setAttribute("style","display:none");  
 
-        listEl.addEventListener("click",function(event){
-            var element = event.target;
-            if (element.matches("li4")) {
-                var correct = document.createElement("p");
-                correct.textContent = "Correct!!";
-                marriageQuestions.appendChild(correct);
-                correct.setAttribute("style","color:darkgreen; border-top: black dotted 2px;");
-                console.log("Hello!");
-                // store score in localStorage based on time on clock when clicked?
-                thirdQuestion();
-        } else if (element.matches("li1"||"li2"||"li3")) {
-            // Placeholder alert
-            var wrong = document.createElement("p");
-            wrong.textContent = "Wrong!!";
-            questions.appendChild(wrong);
-            wrong.setAttribute("style","color:darkgreen; border-top: black dotted 2px;")
-            // Put in time deduction function here for wrong answer
-    
-        }});
-
-    };
-    function thirdQuestion() {
-        headerEl.setAttribute("style","display:none");
-        startBtn.setAttribute("style","display:none");
-        // Create Question
-        var paternity = document.createElement("p");
-        // Create ordered list element
-        var listEl = document.createElement("ol");
-        // Create ordered list items
-        var li1 = document.createElement("li");
-        var li2 = document.createElement("li");
-        var li3 = document.createElement("li");
-        var li4 = document.createElement("li");
-    
-        paternity.textContent = "Which NPC has questionable paternity?"
-        li1.textContent = "Abigail"
-        li2.textContent = "Vincent"
-        li3.textContent = "Emily"
-        li4.textContent = "Maru"
-    
-        // Append ordered list 
-        questions.appendChild(paternity);
-        questions.appendChild(listEl);
-        listEl.appendChild(li1);
-        listEl.appendChild(li2);
-        listEl.appendChild(li3);
-        listEl.appendChild(li4);
-        paternity.setAttribute("style","margin-top:15%;color:white; font-weight:bold; display:flex; flex-wrap:wrap; justify-content:center; text-align:center background-color:pink; padding: 5px;");
-        listEl.setAttribute("style"," display:block;flex-direction:column;justify-content:center;max-width:10%;margin-left:43%;text-align:center; lightgrey 1px solid;");
-        li1.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;");
-        li2.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;");
-        li3.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;");
-        li4.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;");
-
-        listEl.addEventListener("click",function(event){
-            var element = event.target;
-            if (element.matches("li1")) {
-                var correct = document.createElement("p");
-                correct.textContent = "Correct!!";
-                questions.appendChild(correct);
-                correct.setAttribute("style","color:darkgreen; border-top: black dotted 2px;");
-                console.log("Hello!");
-                // store score in localStorage based on time on clock when clicked?
-                fourthQuestion();
-        } else if (element.matches("li2"||"li3"||"li4")) {
-            // Placeholder alert
-            var wrong = document.createElement("p");
-            wrong.textContent = "Wrong!!";
-            questions.appendChild(wrong);
-            wrong.setAttribute("style","color:darkgreen; border-top: black dotted 2px;")
-            // Put in time deduction function here for wrong answer
-    
-        }});
-    };
+     };
 // TODO: Each Question Page
     // Has 'view highscores' link in every top left corner HTML
     // Change the h1,h2, h3 tags to be questions or to be hidden 

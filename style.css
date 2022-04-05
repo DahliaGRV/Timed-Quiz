@@ -24,3 +24,5 @@ header {
     border: black dotted 2px;
     align-self: center;
 }
+
+/* correct.setAttribute("style","color:darkgreen; border-top: black dotted 2px;") */
