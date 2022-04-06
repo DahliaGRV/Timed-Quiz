@@ -9,10 +9,13 @@ JavaScript/ WEB API Timed Quiz
 https://github.com/DahliaGRV/Timed-Quiz
 
 ## Link to deployed site:
+https://dahliagrv.github.io/Timed-Quiz/
 
 
 
 ## Screenshots of Stardew Quiz:
+![image](https://user-images.githubusercontent.com/98775943/161894609-9d732b8a-fb5e-461f-8771-a8f9346c6a95.png)
+![image](https://user-images.githubusercontent.com/98775943/161894662-2f85f1c6-11bd-4771-8c0a-b762f7fd00cd.png)
 
 
 
