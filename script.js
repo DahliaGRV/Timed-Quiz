@@ -1,11 +1,19 @@
 // TODO: Global Scope Variables Here
 var upTime = document. querySelector("#upTime");
 var highScore =document.querySelector("#highscore");
-var nameBtn = document.querySelector("form");
+var nameBtn = document.querySelector("#form");
 nameBtn.setAttribute("style","display:none");
 var endMessage = document.querySelector("#initialForm");
 var viewHighscores = document.querySelector("#viewHighscores");
 var submitBtn = document.querySelector("#submitBtn");
+var initials = document.querySelector("#fname");
+var displayScore = document.querySelector("#displayScore");
+var score1 = document.querySelector("#score-1");
+var score2 = document.querySelector("#score-2");
+var score3 = document.querySelector("#score-3");
+var score4 = document.querySelector("#score-4");
+var score5 = document.querySelector("#score-5");
+var score6 = document.querySelector("#score-6");
 var score = 0;
 var headerEl = document.querySelector("aside");
 var questions = document.querySelector("section");
@@ -26,7 +34,7 @@ var questionObjects = [
     },
     {questions: "Which NPC has questionable paternity?",
     answer: "Abigail",
-    choices: ["Vincent","Sebastian","Emily","Abigail"]
+    choices: ["Vincent","Abigail","Sebastian","Emily"]
     },
     {questions: "What is the currency of ginger island?",
     answer: "Golden Walnuts",
@@ -34,13 +42,12 @@ var questionObjects = [
     },
     {questions: "What is the name of the homeless man behind town?",
      answer: "Linus",
-     choices: ["Shane","Lewis","Harvey","Linus"],
+     choices: ["Shane","Linus","Lewis","Harvey"],
     },
    ];
 var x = 0
 var timer;
 var timerLeft = 200;
-// var score = localStorage.getItem("score") || 0;
 var isPlaying = false;
 
 // TODO: Sart Quiz Button
@@ -71,7 +78,7 @@ var isPlaying = false;
             alert("Oooooooh too slow!!");
             upTime.textContent = `OUT OF TIME`;
             // Have it go back to beginning of timer === 0 (maybe default css)
-            startGame();
+            theScore();
           }
         }, 1000);
       }};
@@ -91,21 +98,22 @@ var isPlaying = false;
     choice3.addEventListener("click", checkAnswer);
     choice4.addEventListener("click", checkAnswer);
     
-    questionHeader.setAttribute("style","margin-top:15%;color:white; font-weight:bold; display:flex; flex-wrap:wrap; justify-content:center; text-align:center background-color:pink; padding: 5px;");
+    questionHeader.setAttribute("style","margin-top:15%;color:white; font-weight:bold; display:flex; flex-wrap:wrap; justify-content:center; text-align:center; padding: 5px;");
     listEl.setAttribute("style"," display:block;flex-direction:column;justify-content:center;max-width:10%;margin-left:43%;text-align:center; lightgrey 1px solid;");
-    choice1.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;","class","correct-answer");
-    choice2.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;","class","not-correct");
-    choice3.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;","class","not-correct");
-    choice4.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;","class","not-correct");
+    choice1.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;");
+    choice2.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;");
+    choice3.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;");
+    choice4.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;");
       }
 
       function checkAnswer() {
         if (this.innerHTML !== questionObjects[x].answer) {
           console.log("Wrong Answer!");
-          timerLeft -= - 50;
+          timerLeft -=  50;
           upTime.textContent = timerLeft;
           score -= 2;
           highScore.textContent = score;
+          
 
         } else {
           console.log("You got it right!");
@@ -132,6 +140,7 @@ var isPlaying = false;
         choice2.setAttribute("style","display:none");
         choice3.setAttribute("style","display:none");
         choice4.setAttribute("style","display:none");
+        upTime.setAttribute("style","display:none");
 
         endMessage.textContent = "Your score is " + score + "!"
         console.log(score);
@@ -139,18 +148,42 @@ var isPlaying = false;
         nameBtn.setAttribute("style","display:flex; justify-content:center");
         viewHighscores.textContent = "Highscores 👾"
         viewHighscores.setAttribute("style","text-align:center");
-      
+        
+        
+        displayScore.setAttribute("style"," display:block;flex-direction:column;justify-content:center;max-width:10%;margin-left:43%;text-align:center");
+        score1.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid");
+        score2.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid");
+        score3.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid");
+        score4.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid");
+        score5.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid");
+        score6.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid");
 
         submitBtn.addEventListener("click", function(){
-         actualHighscore = [];
+        //  actualHighscore = [];
+        actualHighscore = localStorage.getItem("actualHighscore") ? JSON.parse(localStorage.getItem("actualHighscore")) : [];
           var newScore = {
-            name: nameBtn.value,
+            name: initials.value,
             playerScore: score,
           }
-          actualHighscore.push(...newScore);
+          actualHighscore.push(newScore);
           localStorage.setItem("actualHighscore",JSON.stringify(actualHighscore));
           console.log(score);
-    
+          for(let i = 0; i < actualHighscore.length; i++) {
+              // displayScore.textContent += actualHighscore[i].name +  actualHighscore[i].playerScore;
+              score1.textContent = actualHighscore[0].name +  actualHighscore[0].playerScore;
+              score2.textContent = actualHighscore[1].name +  actualHighscore[2].playerScore;
+              score3.textContent = actualHighscore[2].name +  actualHighscore[3].playerScore;
+              score4.textContent = actualHighscore[3].name +  actualHighscore[4].playerScore;
+              score5.textContent = actualHighscore[5].name +  actualHighscore[5].playerScore;
+              score5.textContent = actualHighscore[6].name +  actualHighscore[6].playerScore;
+
+
+              
+
+            if (actualHighscore.length > 6) {
+             return
+            }
+          };
       });  
 
 
