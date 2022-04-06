@@ -3,6 +3,9 @@ var upTime = document. querySelector("#upTime");
 var highScore =document.querySelector("#highscore");
 var nameBtn = document.querySelector("form");
 nameBtn.setAttribute("style","display:none");
+var endMessage = document.querySelector("#initialForm");
+var viewHighscores = document.querySelector("#viewHighscores");
+var submitBtn = document.querySelector("#submitBtn");
 var score = 0;
 var headerEl = document.querySelector("aside");
 var questions = document.querySelector("section");
@@ -37,7 +40,7 @@ var questionObjects = [
 var x = 0
 var timer;
 var timerLeft = 200;
-var score = localStorage.getItem("score") || 0;
+// var score = localStorage.getItem("score") || 0;
 var isPlaying = false;
 
 // TODO: Sart Quiz Button
@@ -95,28 +98,28 @@ var isPlaying = false;
     choice3.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;","class","not-correct");
     choice4.setAttribute("style","background-color:purple;color:white;padding:2%; margin: 2%;border:white 2px solid;","class","not-correct");
       }
-      function checkAnswer() {
-      if (questionObjects[x].answer === this.innerHTML) {
-          console.log("You got it right!");
-          score += 10;
-          highScore.textContent = score 
-          x++
-          displayQuestions();
-      } else {
-        console.log("You lost!");
-        timerLeft -= 50;
-        score -= 2;
-      };
-    // questionObjects.answer.addEventListener("click",function(event)
-    // {
-    //     var element = event.target;
-    //     if (element.matches("Linus"))
-    //     theScore();
-    // });
-    //   let linusMan = questionObjects[3].answer[3];
-    //   console.log(linusMan);
-    //   questionObjects[4].answer.addEventListener("click", theScore());
 
+      function checkAnswer() {
+        if (this.innerHTML !== questionObjects[x].answer) {
+          console.log("Wrong Answer!");
+          timerLeft -= - 50;
+          upTime.textContent = timerLeft;
+          score -= 2;
+          highScore.textContent = score;
+
+        } else {
+          console.log("You got it right!");
+          score += 20;
+          highScore.textContent = score;
+      
+          x++;
+          if (x === questionObjects.length) {
+            console.log("Moving onnn");
+            theScore();
+          } else {
+            displayQuestions();
+          }
+        }
       };
      function theScore() {
         clearInterval(timer);
@@ -129,8 +132,26 @@ var isPlaying = false;
         choice2.setAttribute("style","display:none");
         choice3.setAttribute("style","display:none");
         choice4.setAttribute("style","display:none");
-        nameBtn.setAttribute("style","display:flex");
 
+        endMessage.textContent = "Your score is " + score + "!"
+        console.log(score);
+        endMessage.setAttribute("style","text-align:center;margin-top:15%");
+        nameBtn.setAttribute("style","display:flex; justify-content:center");
+        viewHighscores.textContent = "Highscores 👾"
+        viewHighscores.setAttribute("style","text-align:center");
+      
+
+        submitBtn.addEventListener("click", function(){
+         actualHighscore = [];
+          var newScore = {
+            name: nameBtn.value,
+            playerScore: score,
+          }
+          actualHighscore.push(...newScore);
+          localStorage.setItem("actualHighscore",JSON.stringify(actualHighscore));
+          console.log(score);
+    
+      });  
 
 
  };
